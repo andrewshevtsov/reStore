@@ -1,11 +1,30 @@
 import React from 'react'
+import {
+    Route,
+    Switch
+} from 'react-router-dom'
+import { HomePage, CartPage } from '../pages'
+import Header from '../header'
+
+import './app.css'
 
 const App = () => {
 
     return (
-        <div className="container app">
-            <h2>This is App Component title</h2>
-        </div>
+        <main role='main' className='container'>
+            <Header numItems={5} total={210} />
+            <Switch>
+                <Route
+                    exact
+                    path='/'
+                    component={HomePage}>
+                </Route>
+                <Route
+                    path='/cartpage'
+                    component={CartPage}>
+                </Route>
+            </Switch>
+        </main>
     )
 }
 
