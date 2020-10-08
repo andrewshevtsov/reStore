@@ -1,9 +1,16 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import './header.css'
 
-const Header = ({numItems, total}) => {
+const Header = ({items, total}) => {
+
+    let headerAmountItems = 0
+
+    items.forEach((el, idx) => {
+        headerAmountItems += el.count
+    })
 
     return (
         <header className='header row'>
@@ -13,11 +20,18 @@ const Header = ({numItems, total}) => {
             <Link to='/cartpage'>
                 <div className='shopping-cart'>
                     <i className="cart-icon fa fa-shopping-cart"></i>
-                    {numItems} items (${total})
+                    {headerAmountItems} items (${total})
                 </div>
             </Link>
         </header>
     )
 }
 
-export default Header
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }) => {
+    return {
+        items: cartItems,
+        total: orderTotal
+    }
+}
+
+export default connect(mapStateToProps)(Header)
